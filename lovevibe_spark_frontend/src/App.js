@@ -84,6 +84,8 @@ function App() {
     { src: 'https://cdn.pixabay.com/photo/2016/11/22/07/07/balloons-1845071_1280.png', label: 'Balloon Heart', isImg: true }
   ];
   const [doodleIdx, setDoodleIdx] = useState(() => Math.floor(Math.random() * doodleOptions.length));
+  // Animation state for doodle entrance
+  const [doodleAnim, setDoodleAnim] = useState(false);
 
   // Simple journal state (persisted to localStorage as well)
   const [journalText, setJournalText] = useState('');
@@ -176,7 +178,6 @@ function App() {
     let message = verdictBank[index];
 
     // Generate random love meter between 30 and 99 (inclusive, single click)
-    // Math.random() generates 0-68, +30 gives 30-98. To include 99, we use Math.floor(Math.random()*70)+30 (0-69+30 = 30-99)
     const lovePercent = 30 + Math.floor(Math.random() * 70); // 30-99%
     setLoveValue(lovePercent);
 
@@ -194,17 +195,32 @@ function App() {
   };
 
   // PUBLIC_INTERFACE
-  /** Show a new random doodle (emoji or image) that's different from the current one. */
+  // Show a new random doodle (emoji or image) that's different from the current one, and trigger animation.
   const handleNextDoodle = () => {
     let newIdx;
     do {
       newIdx = Math.floor(Math.random() * doodleOptions.length);
     } while (newIdx === doodleIdx && doodleOptions.length > 1);
-    setDoodleIdx(newIdx);
+
+    // Remove animation class first
+    setDoodleAnim(false);
+    // Use timeout (10ms) to ensure reflow before setting new doodle and triggering anim
+    setTimeout(() => {
+      setDoodleIdx(newIdx);
+      setDoodleAnim(true);
+    }, 10);
   };
 
+  // (Re-)trigger doodle entrance animation on doodle change
+  useEffect(() => {
+    setDoodleAnim(true);
+    const timer = setTimeout(() => setDoodleAnim(false), 530);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line
+  }, [doodleIdx]);
+
   // PUBLIC_INTERFACE
-  /** Handle and 'save' (persist) journal entry. */ // (Moved above for clarity)
+  /** Handle and 'save' (persist) journal entry. */
 
   return (
     <div className="lovevibe-app-bg">
@@ -263,8 +279,8 @@ function App() {
               }}>Saved Entries</div>
               <ol style={{ paddingLeft: '1.15em', margin: 0, color: '#ae348b', textAlign: 'left' }}>
                 {journalEntries.map((entry, idx) => (
-                  <li key={entry.timestamp+"_"+idx} style={{
-                    marginBottom: '0.55em', 
+                  <li key={entry.timestamp + "_" + idx} style={{
+                    marginBottom: '0.55em',
                     background: idx % 2 ? '#f8bbd01c' : '#ffd1dc11',
                     borderRadius: 7,
                     padding: '0.16em 0.09em 0.16em 0.5em'
@@ -358,7 +374,10 @@ function App() {
           </div>
           <div className="doodle-box">
             <div className="doodle-title">Random Love Doodle</div>
-            <div className="doodle-image-container" title={doodleOptions[doodleIdx].label}>
+            <div
+              className={`doodle-image-container${doodleAnim ? " doodle-entrance" : ""}`}
+              title={doodleOptions[doodleIdx].label}
+            >
               {doodleOptions[doodleIdx].isImg
                 ? (
                   // eslint-disable-next-line jsx-a11y/img-redundant-alt
