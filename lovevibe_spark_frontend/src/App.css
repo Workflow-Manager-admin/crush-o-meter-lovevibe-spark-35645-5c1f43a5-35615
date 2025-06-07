@@ -34,13 +34,14 @@ body {
   background: rgba(255,255,255,0.92);
   box-shadow: 0 4px 36px 0 rgba(180, 120, 180, 0.13), 0 1.5px 14px rgba(248, 187, 208, 0.13);
   border-radius: 32px;
-  padding: 2.5rem 2rem 2.5rem 2rem;
+  padding: 2.5rem 2.5rem 2.5rem 2.5rem;
   margin: 48px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 95%;
-  max-width: 420px;
+  width: 98%;
+  max-width: 560px;
+  min-width: 320px;
   transition: box-shadow 0.24s;
   position: relative;
   z-index: 2;
@@ -216,8 +217,9 @@ body {
 /* Responsive Design */
 @media (max-width: 640px) {
   .crush-o-meter-container {
-    padding: 1.15rem 0.3rem 1.5rem 0.3rem;
-    max-width: 99vw;
+    padding: 1.15rem 0.7rem 1.5rem 0.7rem;
+    max-width: 100vw;
+    min-width: unset;
     border-radius: 18px;
   }
   .crush-title {
