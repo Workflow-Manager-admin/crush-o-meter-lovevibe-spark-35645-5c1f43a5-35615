@@ -50,18 +50,40 @@ function App() {
   // Love Meter (fake, playful value)
   const [loveValue, setLoveValue] = useState(72 + Math.floor(Math.random() * 20)); // 72-91% initial, but on scan changes to 30-99
 
-  // Doodle images (ASCII, emoji, SVG, or stock URLs for placeholders)
+  // Doodle images (Expanded with more cute, playful emojis as per requirements)
   const doodleOptions = [
     { src: '💑', label: 'Cute Couple' },
     { src: '🥰', label: 'Smiling in Love' },
-    { src: 'https://cdn.pixabay.com/photo/2017/01/31/13/13/valentines-day-2028256_1280.png', label: 'Heart Balloon', isImg: true },
     { src: '💕', label: 'Hearts Together' },
-    { src: 'https://cdn.pixabay.com/photo/2016/11/22/07/07/balloons-1845071_1280.png', label: 'Balloon Heart', isImg: true },
     { src: '💓', label: 'Beating Heart' },
     { src: '💘', label: 'Arrow Heart' },
-    { src: '🦄', label: 'Unicorn Magic' }
+    { src: '🦄', label: 'Unicorn Magic' },
+    { src: '🧸', label: 'Teddy Bear' },
+    { src: '💐', label: 'Bouquet' },
+    { src: '🌈', label: 'Rainbow' },
+    { src: '🎠', label: 'Carousel' },
+    { src: '☁️', label: 'Cloud' },
+    { src: '🧁', label: 'Cupcake' },
+    { src: '🍭', label: 'Lollipop' },
+    { src: '💌', label: 'Love Letter' },
+    { src: '🥺', label: 'Pleading Face' },
+    { src: '😻', label: 'Loving Cat' },
+    { src: '🌸', label: 'Cherry Blossom' },
+    { src: '💝', label: 'Gift Heart' },
+    { src: '🎀', label: 'Ribbon' },
+    { src: '✨', label: 'Sparkles' },
+    { src: '🫶', label: 'Hearts Hands' },
+    { src: '😍', label: 'Heart Eyes' },
+    { src: '🦋', label: 'Butterfly' },
+    { src: '🌟', label: 'Shining Star' },
+    { src: '🚀', label: 'Rocket Love' },
+    { src: '🫧', label: 'Bubbles' },
+    { src: '🧿', label: 'Charmed' },
+    // Two image doodles from before for visual variation
+    { src: 'https://cdn.pixabay.com/photo/2017/01/31/13/13/valentines-day-2028256_1280.png', label: 'Heart Balloon', isImg: true },
+    { src: 'https://cdn.pixabay.com/photo/2016/11/22/07/07/balloons-1845071_1280.png', label: 'Balloon Heart', isImg: true }
   ];
-  const [doodleIdx, setDoodleIdx] = useState(0);
+  const [doodleIdx, setDoodleIdx] = useState(() => Math.floor(Math.random() * doodleOptions.length));
 
   // Simple journal state (persisted to localStorage as well)
   const [journalText, setJournalText] = useState('');
@@ -172,9 +194,13 @@ function App() {
   };
 
   // PUBLIC_INTERFACE
-  /** Cycle to the next doodle image or emoji. */
+  /** Show a new random doodle (emoji or image) that's different from the current one. */
   const handleNextDoodle = () => {
-    setDoodleIdx((prev) => (prev + 1) % doodleOptions.length);
+    let newIdx;
+    do {
+      newIdx = Math.floor(Math.random() * doodleOptions.length);
+    } while (newIdx === doodleIdx && doodleOptions.length > 1);
+    setDoodleIdx(newIdx);
   };
 
   // PUBLIC_INTERFACE
@@ -340,7 +366,14 @@ function App() {
                     src={doodleOptions[doodleIdx].src}
                     alt={doodleOptions[doodleIdx].label}
                     className="doodle-img"
-                    style={{ maxWidth: '64px', maxHeight: '64px' }}
+                    style={{
+                      maxWidth: '74px',
+                      maxHeight: '74px',
+                      marginTop: '0.12em',
+                      borderRadius: '18px',
+                      boxShadow: '0 2px 16px #ffc2e277, 0 0.5px 2px #b39ddb22',
+                      background: '#fffafdcc'
+                    }}
                   />
                 )
                 : (
@@ -348,7 +381,13 @@ function App() {
                     className="doodle-emoji"
                     role="img"
                     aria-label={doodleOptions[doodleIdx].label}
-                    style={{ fontSize: 54, display: 'inline-block' }}
+                    style={{
+                      fontSize: 76,
+                      display: 'inline-block',
+                      margin: '0.15em 0 0.3em',
+                      filter: 'drop-shadow(0px 2px 8px #ffd1dc66) drop-shadow(0 1px 1px #b39ddb55)',
+                      textShadow: '0 3px 15px #f8bbd077, 0 1.5px 5px #b39ddb44'
+                    }}
                   >
                     {doodleOptions[doodleIdx].src}
                   </span>
@@ -358,9 +397,9 @@ function App() {
               className="btn doodle-change-btn"
               type="button"
               onClick={handleNextDoodle}
-              aria-label="Show different doodle"
+              aria-label="Show random doodle"
             >
-              Change Doodle
+              Next Doodle
             </button>
           </div>
         </div>
