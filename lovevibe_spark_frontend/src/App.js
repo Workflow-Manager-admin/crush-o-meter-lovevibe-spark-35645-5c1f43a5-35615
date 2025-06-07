@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 /**
@@ -61,9 +61,28 @@ function App() {
   ];
   const [doodleIdx, setDoodleIdx] = useState(0);
 
-  // Simple journal state (not persisted)
+  // Simple journal state (persisted to localStorage as well)
   const [journalText, setJournalText] = useState('');
   const [journalSaved, setJournalSaved] = useState('');
+  // Saved entries array
+  const [journalEntries, setJournalEntries] = useState([]);
+
+  // On mount, load entries from localStorage if present
+  useEffect(() => {
+    const saved = window.localStorage.getItem('lovejournal-entries');
+    if (saved) {
+      try {
+        setJournalEntries(JSON.parse(saved));
+      } catch {
+        setJournalEntries([]);
+      }
+    }
+  }, []);
+
+  // Whenever journalEntries changes, save to localStorage
+  useEffect(() => {
+    window.localStorage.setItem('lovejournal-entries', JSON.stringify(journalEntries));
+  }, [journalEntries]);
 
   // Scaffold handlers (add logic as needed)
   const handleReset = () => {
@@ -75,6 +94,8 @@ function App() {
     setDoodleIdx(0);
     setJournalText('');
     setJournalSaved('');
+    setJournalEntries([]);
+    window.localStorage.removeItem('lovejournal-entries');
   };
 
   // PUBLIC_INTERFACE
@@ -129,9 +150,21 @@ function App() {
   };
 
   // PUBLIC_INTERFACE
-  /** Handle and 'save' (just display) journal entry. */
+  /** Handle and 'save' (persist) journal entry. */
   const handleSaveJournal = () => {
-    setJournalSaved(journalText);
+    const text = (journalText || '').trim();
+    if (!text) {
+      setJournalSaved('');
+      return;
+    }
+    // Optionally add timestamp or just push the entry
+    const entry = {
+      text,
+      timestamp: new Date().toISOString()
+    };
+    setJournalEntries(prev => [...prev, entry]);
+    setJournalSaved(text);
+    setJournalText('');
   };
 
   return (
@@ -164,7 +197,43 @@ function App() {
           {journalSaved && (
             <div className="journal-saved-feedback">
               <span role="img" aria-label="saved">💖</span>
-              Saved!<br /><span className="journal-dim">{journalSaved}</span>
+              Saved!
+              <br />
+              <span className="journal-dim">{journalSaved}</span>
+            </div>
+          )}
+          {/* Display all saved entries */}
+          {journalEntries.length > 0 && (
+            <div style={{
+              marginTop: 18,
+              width: '99%',
+              maxWidth: 280,
+              background: 'rgba(255,255,255,0.72)',
+              borderRadius: 18,
+              boxShadow: '0 1px 8px #b39ddb22',
+              padding: '0.6rem 0.7rem',
+              fontSize: '0.98em'
+            }}>
+              <div style={{
+                color: '#c060a8',
+                fontWeight: 600,
+                fontSize: '1.03em',
+                marginBottom: '0.25em',
+                fontFamily: "'Quicksand', 'Poppins', cursive, sans-serif",
+                letterSpacing: '0.01em'
+              }}>Saved Entries</div>
+              <ol style={{ paddingLeft: '1.15em', margin: 0, color: '#ae348b', textAlign: 'left' }}>
+                {journalEntries.map((entry, idx) => (
+                  <li key={entry.timestamp+"_"+idx} style={{
+                    marginBottom: '0.55em', 
+                    background: idx % 2 ? '#f8bbd01c' : '#ffd1dc11',
+                    borderRadius: 7,
+                    padding: '0.16em 0.09em 0.16em 0.5em'
+                  }}>
+                    {entry.text}
+                  </li>
+                ))}
+              </ol>
             </div>
           )}
         </div>
