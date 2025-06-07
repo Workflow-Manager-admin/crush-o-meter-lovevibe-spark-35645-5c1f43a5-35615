@@ -46,8 +46,10 @@ function App() {
     "Our DMs are like a bakery—full of sweet rolls.",
     "Do you have a Band-Aid? Because I just scraped my knee falling for you."
   ];
+
   // Love Meter (fake, playful value)
-  const [loveValue, setLoveValue] = useState(72 + Math.floor(Math.random() * 20)); // 72-91%
+  const [loveValue, setLoveValue] = useState(72 + Math.floor(Math.random() * 20)); // 72-91% initial, but on scan changes to 30-99
+
   // Doodle images (ASCII, emoji, SVG, or stock URLs for placeholders)
   const doodleOptions = [
     { src: '💑', label: 'Cute Couple' },
@@ -84,7 +86,7 @@ function App() {
     window.localStorage.setItem('lovejournal-entries', JSON.stringify(journalEntries));
   }, [journalEntries]);
 
-  // Scaffold handlers (add logic as needed)
+  // Scaffold handlers
   const handleReset = () => {
     setYourName('');
     setCrushName('');
@@ -142,11 +144,15 @@ function App() {
   ];
 
   // PUBLIC_INTERFACE
-  /** Generate a random verdict message on Scan the Vibe click */
+  /** Generate a random verdict message on Scan the Vibe click, and a new random love meter value (30%-99%). */
   const handleScanVibe = () => {
     // Choose a random verdict from the verdictBank
     const index = Math.floor(Math.random() * verdictBank.length);
     let message = verdictBank[index];
+
+    // Generate random love meter between 30 and 99 (inclusive)
+    const lovePercent = 30 + Math.floor(Math.random() * 70); // 30-99%
+    setLoveValue(lovePercent);
 
     // Optionally personalize if both names are present
     if (yourName && crushName) {
