@@ -12,6 +12,40 @@ function App() {
   // Verdict and DM line result states
   const [verdict, setVerdict] = useState('');
   const [dmLine, setDmLine] = useState('');
+
+  // PUBLIC_INTERFACE
+  /** Flirty DM lines to randomly present to the user. */
+  const flirtyDMLines = [
+    "Are you a magician? Because whenever I look at you, everyone else disappears.",
+    "Do you have a name, or can I call you mine?",
+    "Is it hot in here, or is it just our chemistry?",
+    "Is your name Wi-Fi? Because I'm feeling a connection.",
+    "If flirting was a crime, you'd definitely be serving life.",
+    "Do you have a map? I just got lost in your DMs.",
+    "I'm not a photographer, but I can definitely picture us together.",
+    "Do you believe in love at first message, or should I DM you again?",
+    "I think there's something wrong with my phone... your number isn't in it.",
+    "Is your name Google? Because you have everything I’m searching for.",
+    "If you were a vegetable, you’d be a cutecumber.",
+    "Are you made of copper and tellurium? Because you’re Cu-Te.",
+    "Excuse me, but I think you dropped something: my jaw.",
+    "Is your aura pastel or am I just falling for your vibe?",
+    "If you were a cat, you’d purr-fect my day.",
+    "I must be a snowflake, because I’ve fallen for you.",
+    "If you were a fruit, you’d be a fineapple.",
+    "Can I tie your shoes? I don't want you falling for anyone else.",
+    "On a scale of 1 to America, how free are you tonight?",
+    "If beauty were time, you’d be eternity.",
+    "Did it hurt when you fell from the explore page into my DMs?",
+    "Are you my homework? Because I can’t stop procrastinating but want to work on you.",
+    "You must be a keyboard, because you’re just my type.",
+    "I’m not an organ donor, but I’d give you my heart.",
+    "Your hand looks heavy—can I hold it for you?",
+    "If looks could kill, we’d both be immortal, staring at each other in our DMs.",
+    "I was blinded by your beauty... I’m going to need your name and number for insurance purposes.",
+    "Our DMs are like a bakery—full of sweet rolls.",
+    "Do you have a Band-Aid? Because I just scraped my knee falling for you."
+  ];
   // Love Meter (fake, playful value)
   const [loveValue, setLoveValue] = useState(72 + Math.floor(Math.random() * 20)); // 72-91%
   // Doodle images (ASCII, emoji, SVG, or stock URLs for placeholders)
@@ -183,8 +217,12 @@ function App() {
           <button
             className="btn flirty-dm-btn"
             type="button"
-            // No logic yet, placeholder
-            onClick={() => {}}
+            onClick={() => {
+              // PUBLIC_INTERFACE
+              // Select a random DM line and display it below
+              const index = Math.floor(Math.random() * flirtyDMLines.length);
+              setDmLine(flirtyDMLines[index]);
+            }}
           >
             Generate Flirty DM Line
           </button>
