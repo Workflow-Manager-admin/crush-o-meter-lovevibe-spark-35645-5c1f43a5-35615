@@ -144,13 +144,17 @@ function App() {
   ];
 
   // PUBLIC_INTERFACE
-  /** Generate a random verdict message on Scan the Vibe click, and a new random love meter value (30%-99%). */
+  /** 
+   * Generate a random verdict message on Scan the Vibe click, and a new random love meter value (30%-99%).
+   * Also updates the Love Meter UI instantly.
+   */
   const handleScanVibe = () => {
     // Choose a random verdict from the verdictBank
     const index = Math.floor(Math.random() * verdictBank.length);
     let message = verdictBank[index];
 
-    // Generate random love meter between 30 and 99 (inclusive)
+    // Generate random love meter between 30 and 99 (inclusive, single click)
+    // Math.random() generates 0-68, +30 gives 30-98. To include 99, we use Math.floor(Math.random()*70)+30 (0-69+30 = 30-99)
     const lovePercent = 30 + Math.floor(Math.random() * 70); // 30-99%
     setLoveValue(lovePercent);
 
