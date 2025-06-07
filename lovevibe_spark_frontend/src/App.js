@@ -50,38 +50,83 @@ function App() {
   // Love Meter (fake, playful value)
   const [loveValue, setLoveValue] = useState(72 + Math.floor(Math.random() * 20)); // 72-91% initial, but on scan changes to 30-99
 
-  // Doodle images (Expanded with more cute, playful emojis as per requirements)
+  // Doodle options: emojis, image URLs, and inline SVGs
   const doodleOptions = [
-    { src: '💑', label: 'Cute Couple' },
-    { src: '🥰', label: 'Smiling in Love' },
-    { src: '💕', label: 'Hearts Together' },
-    { src: '💓', label: 'Beating Heart' },
-    { src: '💘', label: 'Arrow Heart' },
-    { src: '🦄', label: 'Unicorn Magic' },
-    { src: '🧸', label: 'Teddy Bear' },
-    { src: '💐', label: 'Bouquet' },
-    { src: '🌈', label: 'Rainbow' },
-    { src: '🎠', label: 'Carousel' },
-    { src: '☁️', label: 'Cloud' },
-    { src: '🧁', label: 'Cupcake' },
-    { src: '🍭', label: 'Lollipop' },
-    { src: '💌', label: 'Love Letter' },
-    { src: '🥺', label: 'Pleading Face' },
-    { src: '😻', label: 'Loving Cat' },
-    { src: '🌸', label: 'Cherry Blossom' },
-    { src: '💝', label: 'Gift Heart' },
-    { src: '🎀', label: 'Ribbon' },
-    { src: '✨', label: 'Sparkles' },
-    { src: '🫶', label: 'Hearts Hands' },
-    { src: '😍', label: 'Heart Eyes' },
-    { src: '🦋', label: 'Butterfly' },
-    { src: '🌟', label: 'Shining Star' },
-    { src: '🚀', label: 'Rocket Love' },
-    { src: '🫧', label: 'Bubbles' },
-    { src: '🧿', label: 'Charmed' },
-    // Two image doodles from before for visual variation
-    { src: 'https://cdn.pixabay.com/photo/2017/01/31/13/13/valentines-day-2028256_1280.png', label: 'Heart Balloon', isImg: true },
-    { src: 'https://cdn.pixabay.com/photo/2016/11/22/07/07/balloons-1845071_1280.png', label: 'Balloon Heart', isImg: true }
+    // Emojis
+    { src: '💑', label: 'Cute Couple', type: 'emoji' },
+    { src: '🥰', label: 'Smiling in Love', type: 'emoji' },
+    { src: '💕', label: 'Hearts Together', type: 'emoji' },
+    { src: '💓', label: 'Beating Heart', type: 'emoji' },
+    { src: '💘', label: 'Arrow Heart', type: 'emoji' },
+    { src: '🦄', label: 'Unicorn Magic', type: 'emoji' },
+    { src: '🧸', label: 'Teddy Bear', type: 'emoji' },
+    { src: '💐', label: 'Bouquet', type: 'emoji' },
+    { src: '🌈', label: 'Rainbow', type: 'emoji' },
+    { src: '🎠', label: 'Carousel', type: 'emoji' },
+    { src: '☁️', label: 'Cloud', type: 'emoji' },
+    { src: '🧁', label: 'Cupcake', type: 'emoji' },
+    { src: '🍭', label: 'Lollipop', type: 'emoji' },
+    { src: '💌', label: 'Love Letter', type: 'emoji' },
+    { src: '🥺', label: 'Pleading Face', type: 'emoji' },
+    { src: '😻', label: 'Loving Cat', type: 'emoji' },
+    { src: '🌸', label: 'Cherry Blossom', type: 'emoji' },
+    { src: '💝', label: 'Gift Heart', type: 'emoji' },
+    { src: '🎀', label: 'Ribbon', type: 'emoji' },
+    { src: '✨', label: 'Sparkles', type: 'emoji' },
+    { src: '🫶', label: 'Hearts Hands', type: 'emoji' },
+    { src: '😍', label: 'Heart Eyes', type: 'emoji' },
+    { src: '🦋', label: 'Butterfly', type: 'emoji' },
+    { src: '🌟', label: 'Shining Star', type: 'emoji' },
+    { src: '🚀', label: 'Rocket Love', type: 'emoji' },
+    { src: '🫧', label: 'Bubbles', type: 'emoji' },
+    { src: '🧿', label: 'Charmed', type: 'emoji' },
+    // Sample image doodles
+    { src: 'https://cdn.pixabay.com/photo/2017/01/31/13/13/valentines-day-2028256_1280.png', label: 'Heart Balloon', type: 'image' },
+    { src: 'https://cdn.pixabay.com/photo/2016/11/22/07/07/balloons-1845071_1280.png', label: 'Balloon Heart', type: 'image' },
+    // SVG inline hearts, stars or playful icons
+    {
+      label: 'Animated Heart SVG',
+      type: 'svg',
+      src: (
+        <svg width="68" height="66" viewBox="0 0 68 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="svgHeartGradient" cx="50%" cy="50%" r="65%" fx="50%" fy="50%">
+              <stop offset="0%" stopColor="#ff9aa2" />
+              <stop offset="60%" stopColor="#E87A41" />
+              <stop offset="100%" stopColor="#e573b0" />
+            </radialGradient>
+          </defs>
+          <path
+            d="M33.9 63.1c-1.7-1.3-28.2-20.6-28.2-38.7C5.7 12.4 17.4 5 27.1 5c6.6 0 11.6 4.3 13.8 6.8C43.1 9.3 48.1 5 54.7 5 64.4 5 76.1 12.4 76.1 24.4c0 18.1-26.5 37.4-28.2 38.7-1.1.9-2.7.9-3.8 0z"
+            fill="url(#svgHeartGradient)"
+            stroke="#ea296b"
+            strokeWidth="2.2"
+          />
+        </svg>
+      ),
+    },
+    {
+      label: 'Sparkle SVG',
+      type: 'svg',
+      src: (
+        <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+          <g>
+            <path d="M35 10 L39 31 L60 35 L39 39 L35 60 L31 39 L10 35 L31 31 Z"
+              fill="#ffd1dc" stroke="#b39ddb" strokeWidth="2" />
+          </g>
+        </svg>
+      )
+    },
+    {
+      label: 'Pastel Star SVG',
+      type: 'svg',
+      src: (
+        <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+          <polygon points="35,10 42,32 65,32 47,46 53,67 35,54 17,67 23,46 5,32 28,32"
+            fill="#b39ddb" stroke="#e573b0" strokeWidth="2"/>
+        </svg>
+      ),
+    },
   ];
   const [doodleIdx, setDoodleIdx] = useState(() => Math.floor(Math.random() * doodleOptions.length));
   // Animation state for doodle entrance
@@ -383,41 +428,69 @@ function App() {
               className="doodle-image-container doodle-entrance"
               title={doodleOptions[doodleIdx].label}
             >
-              {doodleOptions[doodleIdx].isImg
-                ? (
-                  // eslint-disable-next-line jsx-a11y/img-redundant-alt
-                  <img
-                    src={doodleOptions[doodleIdx].src}
-                    alt={doodleOptions[doodleIdx].label}
-                    className="doodle-img"
-                    style={{
-                      maxWidth: '74px',
-                      maxHeight: '74px',
-                      marginTop: '0.12em',
-                      borderRadius: '18px',
-                      boxShadow: '0 2px 16px #ffc2e277, 0 0.5px 2px #b39ddb22',
-                      background: '#fffafdcc',
-                      willChange: 'opacity, transform'
-                    }}
-                  />
-                )
-                : (
-                  <span
-                    className="doodle-emoji"
-                    role="img"
-                    aria-label={doodleOptions[doodleIdx].label}
-                    style={{
-                      fontSize: 76,
-                      display: 'inline-block',
-                      margin: '0.15em 0 0.3em',
-                      filter: 'drop-shadow(0px 2px 8px #ffd1dc66) drop-shadow(0 1px 1px #b39ddb55)',
-                      textShadow: '0 3px 15px #f8bbd077, 0 1.5px 5px #b39ddb44',
-                      willChange: 'opacity, transform'
-                    }}
-                  >
-                    {doodleOptions[doodleIdx].src}
-                  </span>
-                )}
+              {(() => {
+                const doodle = doodleOptions[doodleIdx];
+                if (doodle.type === 'emoji') {
+                  return (
+                    <span
+                      className="doodle-emoji"
+                      role="img"
+                      aria-label={doodle.label}
+                      style={{
+                        fontSize: 76,
+                        display: 'inline-block',
+                        margin: '0.15em 0 0.3em',
+                        filter: 'drop-shadow(0px 2px 8px #ffd1dc66) drop-shadow(0 1px 1px #b39ddb55)',
+                        textShadow: '0 3px 15px #f8bbd077, 0 1.5px 5px #b39ddb44',
+                        willChange: 'opacity, transform'
+                      }}
+                    >
+                      {doodle.src}
+                    </span>
+                  );
+                }
+                if (doodle.type === 'image') {
+                  return (
+                    <img
+                      src={doodle.src}
+                      alt={doodle.label}
+                      className="doodle-img"
+                      style={{
+                        maxWidth: '74px',
+                        maxHeight: '74px',
+                        marginTop: '0.12em',
+                        borderRadius: '18px',
+                        boxShadow: '0 2px 16px #ffc2e277, 0 0.5px 2px #b39ddb22',
+                        background: '#fffafdcc',
+                        willChange: 'opacity, transform'
+                      }}
+                    />
+                  );
+                }
+                if (doodle.type === 'svg') {
+                  return (
+                    <span
+                      className="doodle-svg"
+                      aria-label={doodle.label}
+                      style={{
+                        display: 'inline-block',
+                        margin: '0.12em 0 0.35em 0',
+                        maxWidth: 74,
+                        maxHeight: 74,
+                        verticalAlign: 'middle',
+                        willChange: 'opacity, transform',
+                        filter: 'drop-shadow(0px 2px 8px #ffd1dc66) drop-shadow(0 1px 1px #b39ddb33)',
+                        borderRadius: 17,
+                        // background: '#f8bbd01a'
+                      }}
+                    >
+                      {doodle.src}
+                    </span>
+                  );
+                }
+                // fallback (should not hit)
+                return null;
+              })()}
             </div>
             <button
               className="btn doodle-change-btn"
