@@ -374,8 +374,13 @@ function App() {
           </div>
           <div className="doodle-box">
             <div className="doodle-title">Random Love Doodle</div>
+            {/* 
+              Instead of toggling an animation class, use a key prop to force a re-mount of the animated container 
+              for perfect restart of the animation on each doodle change.
+            */}
             <div
-              className={`doodle-image-container${doodleAnim ? " doodle-entrance" : ""}`}
+              key={doodleIdx}
+              className="doodle-image-container doodle-entrance"
               title={doodleOptions[doodleIdx].label}
             >
               {doodleOptions[doodleIdx].isImg
@@ -391,7 +396,8 @@ function App() {
                       marginTop: '0.12em',
                       borderRadius: '18px',
                       boxShadow: '0 2px 16px #ffc2e277, 0 0.5px 2px #b39ddb22',
-                      background: '#fffafdcc'
+                      background: '#fffafdcc',
+                      willChange: 'opacity, transform'
                     }}
                   />
                 )
@@ -405,7 +411,8 @@ function App() {
                       display: 'inline-block',
                       margin: '0.15em 0 0.3em',
                       filter: 'drop-shadow(0px 2px 8px #ffd1dc66) drop-shadow(0 1px 1px #b39ddb55)',
-                      textShadow: '0 3px 15px #f8bbd077, 0 1.5px 5px #b39ddb44'
+                      textShadow: '0 3px 15px #f8bbd077, 0 1.5px 5px #b39ddb44',
+                      willChange: 'opacity, transform'
                     }}
                   >
                     {doodleOptions[doodleIdx].src}
