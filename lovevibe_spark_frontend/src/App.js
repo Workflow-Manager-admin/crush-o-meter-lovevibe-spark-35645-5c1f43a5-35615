@@ -67,7 +67,7 @@ function App() {
   // Saved entries array
   const [journalEntries, setJournalEntries] = useState([]);
 
-  // On mount, load entries from localStorage if present
+  // Load entries from localStorage upon mount
   useEffect(() => {
     const saved = window.localStorage.getItem('lovejournal-entries');
     if (saved) {
@@ -79,7 +79,7 @@ function App() {
     }
   }, []);
 
-  // Whenever journalEntries changes, save to localStorage
+  // Save journalEntries to localStorage whenever it changes
   useEffect(() => {
     window.localStorage.setItem('lovejournal-entries', JSON.stringify(journalEntries));
   }, [journalEntries]);
@@ -98,6 +98,24 @@ function App() {
     window.localStorage.removeItem('lovejournal-entries');
   };
 
+  // PUBLIC_INTERFACE
+  /** Handle save of journal entry: Append to entries and clear input, persist to localStorage. */
+  const handleSaveJournal = () => {
+    const text = (journalText || '').trim();
+    if (!text) {
+      setJournalSaved('');
+      return;
+    }
+    // Save entry as a simple text (with timestamp)
+    const entry = {
+      text,
+      timestamp: new Date().toISOString()
+    };
+    setJournalEntries(prev => [...prev, entry]);
+    setJournalSaved(text);
+    setJournalText('');
+  };
+  
   // PUBLIC_INTERFACE
   /** Playful verdicts for the love meter verdict message. */
   const verdictBank = [
@@ -150,22 +168,7 @@ function App() {
   };
 
   // PUBLIC_INTERFACE
-  /** Handle and 'save' (persist) journal entry. */
-  const handleSaveJournal = () => {
-    const text = (journalText || '').trim();
-    if (!text) {
-      setJournalSaved('');
-      return;
-    }
-    // Optionally add timestamp or just push the entry
-    const entry = {
-      text,
-      timestamp: new Date().toISOString()
-    };
-    setJournalEntries(prev => [...prev, entry]);
-    setJournalSaved(text);
-    setJournalText('');
-  };
+  /** Handle and 'save' (persist) journal entry. */ // (Moved above for clarity)
 
   return (
     <div className="lovevibe-app-bg">
