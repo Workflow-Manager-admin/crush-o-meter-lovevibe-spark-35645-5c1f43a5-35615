@@ -1,6 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
+/** 
+ * LoveyDoveySection: A playful animated box with a pastel cluster of hearts and a rotating sweet love quote.
+ */
+function LoveyDoveySection() {
+  // Sweet, playful quotes/lines for display
+  const loveQuotes = [
+    "Love is the closest thing we have to magic. 💕",
+    "You make my heart do a lil’ happy dance. 💗",
+    "Falling for you was like catching the stars. 🌟",
+    "With you, even Mondays feel like spring. 🌸",
+    "Sugar, spice, and all things nice—especially you. 🍭",
+    "You’re the peanut butter to my jelly. 🥜💞🍓",
+    "Butterflies? More like fireworks. 🎆",
+    "Together is my favorite place to be. 💝",
+    "Your smile = my safe place. 😊💓",
+    "Love sparkles brighter when it’s shared. ✨",
+    "You’re the reason my heart adds a little skip. 🎵🫶",
+    "Every love story is beautiful, but ours is my fave. 📖💕",
+    "You + Me = 🌈💖",
+    "You’re my favorite notification. 📱💖",
+    "The world is better with you in my heart. 🌍💗",
+    "Our love is written in the stars. ✨",
+    "You’re the cherry on my cupcake. 🧁"
+  ];
+  const [quoteIdx, setQuoteIdx] = useState(() => Math.floor(Math.random() * loveQuotes.length));
+
+  // Change quote every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setQuoteIdx(q => (q + 1) % loveQuotes.length);
+    }, 4200);
+    return () => clearInterval(interval);
+  }, [loveQuotes.length]);
+
+  // Optionally, animated hearts cluster using pure SVG/CSS
+  return (
+    <div className="loveydovey-section">
+      <div className="loveydovey-hearts-anim">
+        {/* Animated pastel hearts: floating, pulsing, with different delay for each */}
+        <span className="loveydove-heart heart1">💗</span>
+        <span className="loveydove-heart heart2">💖</span>
+        <span className="loveydove-heart heart3">💕</span>
+        <span className="loveydove-heart heart4">💝</span>
+        <span className="loveydove-heart heart5">💓</span>
+      </div>
+      <div className="loveydovey-quote">
+        <span>{loveQuotes[quoteIdx]}</span>
+      </div>
+    </div>
+  );
+}
+
+
 /**
  * PUBLIC_INTERFACE
  * Main Crush-O-Meter / LoveVibe Spark container, now with Love Meter, Doodle Image Changer, and Love Journal integration.
@@ -336,6 +389,9 @@ function App() {
               </ol>
             </div>
           )}
+
+          {/* LoveyDoveySection below the journal box */}
+          <LoveyDoveySection />
         </div>
 
         {/* Center: main Crush-O-Meter content */}

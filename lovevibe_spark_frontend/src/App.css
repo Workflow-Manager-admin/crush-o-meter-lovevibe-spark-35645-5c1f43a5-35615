@@ -274,6 +274,87 @@ body {
   font-size: 0.89em;
 }
 
+/* LoveyDovey Section: extra box under journal */
+.loveydovey-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 2.2rem;
+  margin-bottom: 0.22rem;
+  padding: 1.22em 1em 1.3em 1em;
+  min-height: 142px;
+  min-width: 178px;
+  max-width: 320px;
+  background: linear-gradient(118deg, #fff3fb 75%, #ffe4e4 100%);
+  border-radius: 29px;
+  box-shadow: 0 2px 16px #ffd1dc33, 0 1.5px 7px #b39ddb22;
+  border: 2px dashed #ffd1dc77;
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  /* Playful animation pop-in */
+  animation: doviePopIn 0.77s cubic-bezier(.26,1.34,.55,1.01);
+}
+@keyframes doviePopIn {
+  0% { opacity:0; transform: scale(0.9) translateY(16px);}
+  60% { opacity:1; transform: scale(1.05) translateY(-2px);}
+  100% { opacity:1; transform: scale(1) translateY(0);}
+}
+
+.loveydovey-hearts-anim {
+  display: flex;
+  flex-direction: row;
+  gap: 9px;
+  margin-bottom: 0.9em;
+  margin-top: 0.1em;
+  justify-content: center;
+  position: relative;
+  min-height: 45px;
+}
+.loveydove-heart {
+  font-size: 2.0em;
+  filter: drop-shadow(0px 1.5px 4px #ffd1dc50);
+  animation: floatingHeart 2.8s infinite alternate cubic-bezier(.68,-0.55,.27,1.55);
+  position: relative;
+  z-index: 2;
+  will-change: transform, opacity;
+}
+
+.heart1 { color: #e573b0; animation-delay: 0s;    }
+.heart2 { color: #b39ddb; animation-delay: 0.37s; font-size: 2.3em; }
+.heart3 { color: #ea296b; animation-delay: 0.65s; }
+.heart4 { color: #efd6fb; animation-delay: 0.22s; font-size: 1.85em;}
+.heart5 { color: #f06292; animation-delay: 0.81s; font-size: 2.1em;}
+
+@keyframes floatingHeart {
+  0%   { transform: translateY(6px) scale(0.88) rotate(-5deg); opacity: 0.84;}
+  24%  { transform: translateY(-2px) scale(1.1) rotate(3deg); }
+  44%  { transform: translateY(-9px) scale(1.22) rotate(-8deg);}
+  67%  { transform: translateY(4px) scale(1.0) rotate(2deg);}
+  90%  { transform: translateY(-12px) scale(1.15) rotate(-6deg);}
+  100% { transform: translateY(2px) scale(0.98) rotate(4deg);}
+}
+
+.loveydovey-quote {
+  text-align: center;
+  color: #b39ddb;
+  font-family: 'Quicksand', 'Poppins', cursive, sans-serif;
+  font-size: 1.14em;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  margin-top: 0.02em;
+  margin-bottom: 0.12em;
+  background: linear-gradient(88deg, #ffd1dc33 60%, #f8bbd0 100%);
+  padding: 0.41em 1em;
+  border-radius: 13px;
+  box-shadow: 0 1px 7px #f8bbd033;
+  min-width: 80px;
+  max-width: 93vw;
+  min-height: 28px;
+  transition: background 0.24s, color 0.18s;
+}
+
 
 /* Large Playful Title */
 .crush-title {
